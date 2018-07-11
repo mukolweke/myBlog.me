@@ -26,6 +26,6 @@ class DashboardController extends Controller
         $user_id = auth()->user()->id;
 
         // pass to dashboard; since we have relationship we can get their post by
-        return view('dashboard')->with('posts',$this->repo->findUser($user_id));
+        return view('dashboard')->with('posts',$this->repo->getUserPost($user_id));
     }
 }
