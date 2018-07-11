@@ -14,7 +14,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li><a href="/posts">Blogs</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="/archive">Archive Blogs</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

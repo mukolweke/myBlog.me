@@ -17,12 +17,10 @@ class UserRepository
     public function __construct(){}
 
 
-    function findUser($user_id){
+    function getUserPost($user_id){
+
         return User::find($user_id)->post;
+
     }
-
-
-
-
 
 }

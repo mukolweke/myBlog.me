@@ -11,12 +11,14 @@ class PostsController extends Controller
 {
 
     private $repo;
+    private $user;
 
     // access control
     public function __construct(PostsRepository $postsRepository)
     {
         $this->middleware('auth',['except'=>['index','show']]);
         $this->repo = $postsRepository;
+//        $this->user =  \Auth::user();
     }
 
     /**
@@ -94,9 +96,8 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = $this->repo->getOneBlog($id);
-
         //check correct user
-        if(auth()->user->id != $post->user_id){
+        if(auth()->id() != $post->user_id){
             return redirect('posts')->with('error', 'Unauthorized Page Access');
         }
 
@@ -136,7 +137,7 @@ class PostsController extends Controller
         $post = $this->repo->getOneBlog($id);
 
         //check correct user
-        if(auth()->user->id != $post->user_id){
+        if(auth()->id() != $post->user_id){
             return redirect('posts')->with('error', 'Unauthorized Page Access');
         }
 

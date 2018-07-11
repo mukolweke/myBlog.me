@@ -17,7 +17,7 @@
 
 Route::get('/', 'PagesController@index');
 
-Route::get('/about', 'PagesController@about');
+Route::get('/archive', 'PagesController@archive');
 
 // will create all the controller routes and map them -> run php artisan route:list
 Route::resource('posts', 'PostsController');
