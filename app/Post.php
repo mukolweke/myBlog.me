@@ -29,10 +29,10 @@ class Post extends Model
         $this->attributes['title'] = ucwords($value);
     }
 
-    // query scope
-    public function scopeGetDeletedBlogs($query){
+    // query scope;deleted blogs
+    public function scopeArchived($query){
 
-        return $query->onlyTrashed()->orderBy('deleted_at','desc')->get();
+        return $query->onlyTrashed()->orderBy('deleted_at','desc');
 
     }
 

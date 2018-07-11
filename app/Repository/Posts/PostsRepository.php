@@ -48,4 +48,15 @@ class PostsRepository {
         $post->save();
     }
 
+
+    public function getDeletedBlogs(){
+
+        $data = Post::archived()->get();
+
+        return $data;
+
+
+
+    }
+
 }

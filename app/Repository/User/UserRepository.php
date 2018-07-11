@@ -18,7 +18,9 @@ class UserRepository
 
 
     function getUserPost($user_id){
+
         return User::find($user_id)->post;
+
     }
 
 }
