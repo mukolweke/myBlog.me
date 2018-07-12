@@ -2,40 +2,60 @@
 
 namespace Tests\Unit;
 
+use App\Post;
+use App\Repository\User\UserRepository;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class KukuTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+
+    use RefreshDatabase;
+
+//    creates user and logs them in
+    public function loginUser()
     {
-        $this->assertTrue(true);
+        $user = factory(User::class)->create();
+
+        Auth::login($user, true);
+
+        return Auth::user();
     }
 
     // http test->redirection (user shouldn't enter create if they haven't logged in;
     public function pageAccessTest()
     {
+
+        $user = $this->loginUser();
+
         $response = $this->get('/posts/create');
 
         $response->assertStatus(302);
+
+        dd(Auth::user());
+
     }
 
-    public function testBasicExample()
-    {
-        $response = $this->withHeaders([
-            'X-Header' => 'Value',
-        ])->json('POST', '/posts/create', ['title' => 'Dummy Blog', 'body'=>'dummy body']);
 
-        $response
-            ->assertStatus(201)
-            ->assertJson([
-                'created' => true,
-            ]);
-    }
+public function testIfFetchesHighestPriority()
+{
+    $user = $this->loginUser();
+    // assumption made
+    factory(Post::class,3)->create();
+
+    factory(Post::class)->create(['priority'=>'3']);
+
+    $important_post = factory(Post::class)->create(['priority'=>'5']);
+
+    //call the method
+    $blog = Post::prioritize()->first();
+
+    //test using assertion
+    $this->assertEquals($important_post->id, $blog->id);
+}
+
+
 }

@@ -36,4 +36,10 @@ class Post extends Model
 
     }
 
+    // query scope;gets highest priority blogs
+    public static function scopePrioritize($query){
+
+        return $query->orderBy('priority','desc');
+    }
+
 }
