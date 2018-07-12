@@ -28,7 +28,20 @@ class PostsRepository {
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
+        $post->priority = 0;
         $post->save();
+
+    }
+
+    function postTestBlog($data){
+
+        $post = new Post();
+        $post->title = $data['title'];
+        $post->body = $data['body'];
+        $post->user_id = $data['user_id'];
+        $post->priority = 0;
+
+        return $post;
 
     }
 

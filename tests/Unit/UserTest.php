@@ -48,20 +48,20 @@ class UserTest extends TestCase
 //                ->press('Login')
 //                ->assertSee('You are logged in!');
 //        });
+
+//        $user = factory(User::class,1)->create();
 //
-////        $user = factory(User::class,1)->create();
-////
-////        dd($user->email);
-////
-////        $postRequest = [
-////            '_token' => csrf_token(),
-////            'email' => $user->email,
-////            'password' => $user->password,
-////        ];
-////
-////        $this->post(route('login'), $postRequest)
-//////            ->assertSee('You are logged in');
-////            ->assertRedirect('/dashboard');
+//        dd($user->email);
+//
+//        $postRequest = [
+//            '_token' => csrf_token(),
+//            'email' => $user->email,
+//            'password' => $user->password,
+//        ];
+//
+//        $this->post(route('login'), $postRequest)
+////            ->assertSee('You are logged in');
+//            ->assertRedirect('/dashboard');
 //    }
 
 }

@@ -9,5 +9,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         },
         'title' => $faker->title,
         'body' => $faker->text,
+        'priority'=>0,
+        'deleted_at'=>null,
     ];
 });

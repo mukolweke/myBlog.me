@@ -35,7 +35,6 @@ class KukuTest extends TestCase
         $response = $this->get('/posts/create');
 
         $response->assertStatus(200);
-
     }
 
 
