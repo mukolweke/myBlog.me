@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,6 +53,22 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+
+        'testing' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'forunittest',
+            'username' => 'homestead',
+            'password' => 'secret',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
 
         'pgsql' => [
             'driver' => 'pgsql',
