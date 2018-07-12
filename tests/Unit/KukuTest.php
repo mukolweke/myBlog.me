@@ -25,37 +25,37 @@ class KukuTest extends TestCase
         return Auth::user();
     }
 
+
     // http test->redirection (user shouldn't enter create if they haven't logged in;
-    public function pageAccessTest()
+    public function testPageAccess()
     {
 
         $user = $this->loginUser();
 
         $response = $this->get('/posts/create');
 
-        $response->assertStatus(302);
-
-        dd(Auth::user());
-
+        $response->assertStatus(200);
     }
 
 
-public function testIfFetchesHighestPriority()
-{
-    $user = $this->loginUser();
-    // assumption made
-    factory(Post::class,3)->create();
 
-    factory(Post::class)->create(['priority'=>'3']);
+    public function testIfFetchesHighestPriority()
+    {
+        $user = $this->loginUser();
+        // assumption made
+        factory(Post::class, 3)->create();
 
-    $important_post = factory(Post::class)->create(['priority'=>'5']);
+        factory(Post::class)->create(['priority' => '3']);
 
-    //call the method
-    $blog = Post::prioritize()->first();
+        $important_post = factory(Post::class)->create(['priority' => '5']);
 
-    //test using assertion
-    $this->assertEquals($important_post->id, $blog->id);
-}
+        //call the method
+        $blog = Post::prioritize()->first();
+
+        //test using assertion
+        $this->assertEquals($important_post->id, $blog->id);
+    }
+
 
 
 }
