@@ -6,9 +6,14 @@
  */
 
 require('./bootstrap');
-require('/vendor/unisharp/laravel-ckeditor/ckeditor.js');
 
 window.Vue = require('vue');
+
+window.axios = require('axios');
+
+require('./components.js');
+
+// Vue.component('home-page', require('./components/pages/HomePage.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,10 +21,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 const app = new Vue({
+
     el: '#app'
 });
 
-CKEDITOR.replace( 'article-ckeditor' );

@@ -19,5 +19,8 @@
         "lodash": "^4.17.4",
         "vue": "^2.5.7",
         "dusk": "1.0.0"
+    },
+    "dependencies": {
+        "foundation-sites": "^6.5.0-rc.2"
     }
 }

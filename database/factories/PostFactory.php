@@ -10,6 +10,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'title' => $faker->title,
         'body' => $faker->text,
         'priority'=>0,
+        'cover_image'=>'noimage.jgp',
         'deleted_at'=>null,
     ];
 });
