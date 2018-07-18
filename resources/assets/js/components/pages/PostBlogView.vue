@@ -4,7 +4,6 @@
     <div>
         <h1>Create Post</h1>
 
-        <form class="form-horizontal" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title" class="control-label col-sm-2">Title: </label>
                 <div class="col-sm-10">
@@ -31,7 +30,6 @@
                 </div>
             </div>
 
-        </form>
 
         <!---->
     </div>
@@ -40,7 +38,7 @@
 <script>
     export default {
         name: "PostBlogView",
-
+        props:['id'],
         data(){
 
             return{
@@ -48,7 +46,7 @@
                 title: '',
                 body: '',
                 cover_image:'',
-
+                user_id:0,
             }
         },
 
@@ -62,6 +60,7 @@
 
                     title: this.title,
                     body: this.body,
+                    user_id: this.id,
                     cover_image: this.cover_image
 
                 }).then(response => {

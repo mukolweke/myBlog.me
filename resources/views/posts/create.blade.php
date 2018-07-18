@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <post-blog></post-blog>
+    <post-blog id="{!! $id !!}"></post-blog>
 
 @endsection
