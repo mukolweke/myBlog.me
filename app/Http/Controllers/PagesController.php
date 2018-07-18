@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Repository\Posts\PostsRepository;
+use App\User;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -22,7 +23,6 @@ class PagesController extends Controller
 
     //index page
     public function index(){
-
 
         return view('pages.index');
 

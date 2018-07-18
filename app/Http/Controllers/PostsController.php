@@ -17,14 +17,14 @@ class PostsController extends Controller
     // access control
     public function __construct(PostsRepository $postsRepository)
     {
-        $this->middleware('auth',['except'=>['index','show']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
         $this->repo = $postsRepository;
 //        $this->user =  \Auth::user();
     }
 
     /**
      * Display a listing of the resource.
-      *
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -36,7 +36,7 @@ class PostsController extends Controller
         // $posts = Post::orderBy('created_at', 'desc')->get();
 
 
-        $posts = $this->repo -> getAllBlogs();
+        $posts = $this->repo->getAllBlogs();
 
         return view('posts.index')->with('posts', $posts);
 
@@ -49,24 +49,24 @@ class PostsController extends Controller
      */
     public function create()
     {
-
-        return view('posts.create');
+        $id = auth()->user()->id;
+        return view('posts.create', compact('id'));
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
-        $this->validate($request,[
-            'title'=>'required',
-            'body'=> 'required',
-            'cover_image'=>'image|nullable|max:1999',
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999',
         ]);
 
         // create post
@@ -79,7 +79,7 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -92,34 +92,34 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $post = $this->repo->getOneBlog($id);
         //check correct user
-        if(auth()->id() != $post->user_id){
+        if (auth()->id() != $post->user_id) {
             return redirect('posts')->with('error', 'Unauthorized Page Access');
         }
 
-        return view('posts.edit')->with('post', $post);
+        return view('posts.edit', ['id' => $id]);
 
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
 
-        $this->validate($request,[
-            'title'=>'required',
-            'body'=> 'required'
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required'
         ]);
 
         $this->repo->updateBlog($request, $id);
@@ -130,7 +130,7 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -139,13 +139,13 @@ class PostsController extends Controller
         $post = $this->repo->getOneBlog($id);
 
         //check correct user
-        if(auth()->id() != $post->user_id){
+        if (auth()->id() != $post->user_id) {
             return redirect('posts')->with('error', 'Unauthorized Page Access');
         }
 
-        if($post->cover_image != 'noimage.jpg'){
+        if ($post->cover_image != 'noimage.jpg') {
             //delete image
-            Storage::delete('public/cover_images/'.$post->cover_image);
+            Storage::delete('public/cover_images/' . $post->cover_image);
         }
         $post->delete();
 

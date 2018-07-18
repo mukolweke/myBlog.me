@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BlogsController extends Controller
 {
@@ -21,13 +22,24 @@ class BlogsController extends Controller
 
     public function store(Request $request)
     {
+        $input = $request->all();
+        $post = Post::create($input);
+//        $post = new Post();
+//
+//        $post = $request->get('title');
+//        $post = $request->get('body');
+//
+//        $post->save();
 
-        $post = new Post();
+        return response()->json($post);
 
-        $post = $request->get('title');
-        $post = $request->get('body');
+    }
 
-        $post->save();
+
+    public function edit($id)
+    {
+
+        $post = Post::find($id);
 
         return response()->json($post);
 
