@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->mediumText('body');
             $table->unsignedInteger('user_id');
             $table->integer('priority')->default(0);
+            $table->string('cover_image');
             $table->timestamps();
             $table->softDeletes();
 

@@ -24,11 +24,31 @@ class PostsRepository {
 
     function postBlog($request){
 
+        // file upload
+        if($request->hasFile('cover_image')){
+
+            // get filename with extension
+            $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+
+            // get just filename
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+
+            // make image unique
+            $imageToStore = $fileName.'_'.time().$extension;
+
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $imageToStore);
+
+        }else{
+            $imageToStore = 'noimage.jpg';
+        }
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
         $post->priority = 0;
+        $post->cover_image = $imageToStore;
         $post->save();
 
     }
@@ -54,10 +74,30 @@ class PostsRepository {
 
     function updateBlog($request,$id){
 
+        // file upload
+        if($request->hasFile('cover_image')){
+
+            // get filename with extension
+            $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+
+            // get just filename
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+
+            // make image unique
+            $imageToStore = $fileName.'_'.time().$extension;
+
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $imageToStore);
+
+        }
+
         // create post
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        if($request->hasFile('cover_image')){
+            $post->cover_image = $imageToStore;
+        }
         $post->save();
     }
 
